@@ -70,5 +70,8 @@ urlpatterns = [
     path("faq/", views.faq_index, name="faq_index"),
     path("faq/<int:section_id>", views.faq_section, name="faq_section"),
 
-    path("download_sample_xls/<str:filename>", views.download_sample_xls, name="download_sample_xls")
+    path("download_sample_xls/<str:filename>", views.download_sample_xls, name="download_sample_xls"),
+
+    path("enter_staff_mode", views.enter_staff_mode, name="enter_staff_mode"),
+    path("exit_staff_mode", views.exit_staff_mode, name="exit_staff_mode")
 ]

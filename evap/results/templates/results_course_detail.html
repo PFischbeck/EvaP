@@ -21,7 +21,7 @@
         <div class="alert alert-warning">{% trans 'This is a preview. The course is still in the process of evaluation.' %}</div>
     {% endif %}
 
-    {% if is_reviewer or is_contributor_or_delegate %}
+    {% if is_reviewer and in_staff_mode or is_contributor_or_delegate %}
         {% if course.is_private %}
             <div class="alert alert-info d-print-none">
                 <span class="fas fa-lock"></span> {% trans 'This course is private. Only contributors and participants can see the results.' %}

@@ -215,6 +215,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'evap.evaluation.auth.RequestAuthMiddleware',
+    'evap.staff.staff_mode.StaffModeMiddleware',
 ]
 
 TEMPLATES = [
@@ -229,7 +230,8 @@ TEMPLATES = [
                 "django.template.context_processors.static",
                 "django.template.context_processors.request",
                 "django.contrib.messages.context_processors.messages",
-                "evap.context_processors.slogan"
+                "evap.context_processors.slogan",
+                "evap.context_processors.staff_mode"
             ],
             'builtins': ['django.templatetags.i18n'],
         },
@@ -260,6 +262,7 @@ SESSION_CACHE_ALIAS = "sessions"
 SESSION_SAVE_EVERY_REQUEST = True
 SESSION_COOKIE_AGE = 60 * 60 * 24 * 365  # one year
 
+STAFF_MODE_TIMEOUT = 60 * 60 # one hour
 
 ### Internationalization
 

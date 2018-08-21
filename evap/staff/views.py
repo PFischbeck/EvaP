@@ -1413,3 +1413,21 @@ def download_sample_xls(request, filename):
     response["Content-Disposition"] = "attachment; filename=\"{}\"".format(filename)
     write_book.save(response)
     return response
+
+@require_POST
+def enter_staff_mode(request):
+    if not request.user.is_staff:
+        raise PermissionDenied
+    from evap.staff import staff_mode
+    staff_mode.enter_staff_mode(request)
+    messages.success(request, _("Successfully entered staff mode."))
+    return redirect('staff:index')
+
+@require_POST
+def exit_staff_mode(request):
+    if not request.user.is_staff:
+        raise PermissionDenied
+    from evap.staff import staff_mode
+    staff_mode.exit_staff_mode(request)
+    messages.success(request, _("Successfully exited staff mode."))
+    return redirect('results:index')

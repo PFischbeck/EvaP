@@ -6,7 +6,7 @@ from django.conf import settings
 from django.core.management.base import BaseCommand
 from django.db import transaction
 
-from evap.evaluation.models import TextAnswer, UserProfile, Semester, Course
+from evap.evaluation.models import TextAnswer, UserProfile, Semester, Evaluation
 
 
 class Command(BaseCommand):
@@ -55,7 +55,7 @@ class Command(BaseCommand):
         try:
             with transaction.atomic():
                 self.stdout.write("Replacing text answers with lorem ipsum...")
-                self.randomize_text_answers(lorem_ipsum)
+                self.randomize_textanswers(lorem_ipsum)
 
                 # do this ahead of time to avoid the same name being chosen twice
                 self.stdout.write("Generating random usernames...")
@@ -64,8 +64,8 @@ class Command(BaseCommand):
                 self.stdout.write("Replacing usernames and email addresses with random names...")
                 self.replace_usernames_emails(random_usernames)
 
-                self.stdout.write("Shuffling course data...")
-                self.shuffle_courses()
+                self.stdout.write("Shuffling evaluation data...")
+                self.shuffle_evaluations()
 
                 self.stdout.write("Done.")
 
@@ -76,12 +76,12 @@ class Command(BaseCommand):
             self.stdout.write("")
             raise
 
-    def randomize_text_answers(self, lorem_ipsum):
-        for text_answer in TextAnswer.objects.all():
-            text_answer.answer = self.lorem(text_answer.answer, lorem_ipsum)
-            if text_answer.original_answer:
-                text_answer.original_answer = self.lorem(text_answer.original_answer, lorem_ipsum)
-            text_answer.save()
+    def randomize_textanswers(self, lorem_ipsum):
+        for textanswer in TextAnswer.objects.all():
+            textanswer.answer = self.lorem(textanswer.answer, lorem_ipsum)
+            if textanswer.original_answer:
+                textanswer.original_answer = self.lorem(textanswer.original_answer, lorem_ipsum)
+            textanswer.save()
 
     @staticmethod
     def lorem(text, lorem_ipsum):
@@ -114,19 +114,19 @@ class Command(BaseCommand):
             user.save()
 
     @staticmethod
-    def shuffle_courses():
+    def shuffle_evaluations():
         # do this per semester to avoid problems e.g. with archived semesters
         for semester in Semester.objects.all():
-            shuffled_courses = list(semester.courses.all())
-            random.shuffle(shuffled_courses)
+            shuffled_evaluations = list(semester.evaluations)
+            random.shuffle(shuffled_evaluations)
 
-            for i, course in enumerate(semester.courses.all()):
-                course.degrees.set(shuffled_courses[i].degrees.all())
-                course.semester = shuffled_courses[i].semester
-                course.name_de = shuffled_courses[i].name_de + " "  # add a space to avoid name collisions
-                course.name_en = shuffled_courses[i].name_en + " "
-                course.save()
+            for i, evaluation in enumerate(semester.evaluations):
+                evaluation.course.degrees.set(shuffled_evaluations[i].course.degrees.all())
+                evaluation.course.semester = shuffled_evaluations[i].course.semester
+                evaluation.name_de = shuffled_evaluations[i].name_de + " "  # add a space to avoid name collisions
+                evaluation.name_en = shuffled_evaluations[i].name_en + " "
+                evaluation.save()
 
-        for course in Course.objects.all():
-            course.name_de = course.name_de[:-1]  # remove the space again
-            course.name_en = course.name_en[:-1]
+        for evaluation in Evaluation.objects.all():
+            evaluation.name_de = evaluation.name_de[:-1]  # remove the space again
+            evaluation.name_en = evaluation.name_en[:-1]

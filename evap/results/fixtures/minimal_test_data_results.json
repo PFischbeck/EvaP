@@ -30,12 +30,12 @@
   "pk": 2,
   "model": "evaluation.questionnaire",
   "fields": {
-    "public_name_de": "the course",
+    "public_name_de": "the evaluation",
     "type": 10,
-    "teaser_en": "answer questions regarding a course here",
+    "teaser_en": "answer questions regarding an evaluation here",
     "order": 0,
-    "teaser_de": "answer questions regarding a course here",
-    "public_name_en": "the course",
+    "teaser_de": "answer questions regarding an evaluation here",
+    "public_name_en": "the evaluation",
     "description_en": "general_questionnaire description",
     "obsolete": false,
     "name_de": "general_questionnaire",
@@ -61,7 +61,7 @@
     "questionnaire": 1,
     "text_en": "how?",
     "text_de": "how?",
-    "type": "T"
+    "type": 0
   }
 },
 {
@@ -71,7 +71,7 @@
     "questionnaire": 1,
     "text_en": "how much?",
     "text_de": "how much?",
-    "type": "L"
+    "type": 1
   }
 },
 {
@@ -81,7 +81,7 @@
     "questionnaire": 2,
     "text_en": "how?",
     "text_de": "how?",
-    "type": "T"
+    "type": 0
   }
 },
 {
@@ -91,7 +91,7 @@
     "questionnaire": 2,
     "text_en": "how much?",
     "text_de": "how much?",
-    "type": "L"
+    "type": 1
   }
 },
 {
@@ -101,14 +101,14 @@
     "questionnaire": 2,
     "text_en": "your grade",
     "text_de": "your grade",
-    "type": "G"
+    "type": 2
   }
 },
 {
   "pk": "00000000-0000-0000-0000-000000000001",
   "model": "evaluation.textanswer",
   "fields": {
-    "answer": ".course_orig_published.",
+    "answer": ".general_orig_published.",
     "question": 3,
     "original_answer": null,
     "contribution": 1,
@@ -119,7 +119,7 @@
   "pk": "00000000-0000-0000-0000-000000000002",
   "model": "evaluation.textanswer",
   "fields": {
-    "answer": ".course_orig_hidden.",
+    "answer": ".general_orig_hidden.",
     "question": 3,
     "original_answer": null,
     "contribution": 1,
@@ -130,66 +130,11 @@
   "pk": "00000000-0000-0000-0000-000000000003",
   "model": "evaluation.textanswer",
   "fields": {
-    "answer": ".course_changed_published.",
+    "answer": ".general_changed_published.",
     "question": 3,
-    "original_answer": ".course_orig_published_changed.",
+    "original_answer": ".general_orig_published_changed.",
     "contribution": 1,
     "state": "PU"
-  }
-},
-{
-  "pk": "00000000-0000-0000-0000-000000000004",
-  "model": "evaluation.textanswer",
-  "fields": {
-    "answer": ".responsible_orig_published.",
-    "question": 1,
-    "original_answer": null,
-    "contribution": 2,
-    "state": "PU"
-  }
-},
-{
-  "pk": "00000000-0000-0000-0000-000000000005",
-  "model": "evaluation.textanswer",
-  "fields": {
-    "answer": ".responsible_orig_hidden.",
-    "question": 1,
-    "original_answer": null,
-    "contribution": 2,
-    "state": "HI"
-  }
-},
-{
-  "pk": "00000000-0000-0000-0000-000000000006",
-  "model": "evaluation.textanswer",
-  "fields": {
-    "answer": ".responsible_changed_published.",
-    "question": 1,
-    "original_answer": ".responsible_orig_published_changed.",
-    "contribution": 2,
-    "state": "PU"
-  }
-},
-{
-  "pk": "00000000-0000-0000-0000-000000000007",
-  "model": "evaluation.textanswer",
-  "fields": {
-    "answer": ".responsible_orig_private.",
-    "question": 1,
-    "original_answer": null,
-    "contribution": 2,
-    "state": "PR"
-  }
-},
-{
-  "pk": "00000000-0000-0000-0000-000000000008",
-  "model": "evaluation.textanswer",
-  "fields": {
-    "answer": ".responsible_orig_notreviewed.",
-    "question": 1,
-    "original_answer": null,
-    "contribution": 2,
-    "state": "NR"
   }
 },
 {
@@ -218,7 +163,7 @@
   "pk": "00000000-0000-0000-0000-000000000011",
   "model": "evaluation.textanswer",
   "fields": {
-    "answer": ".other_responsible_orig_published.",
+    "answer": ".responsible_contributor_orig_published.",
     "question": 1,
     "original_answer": null,
     "contribution": 6,
@@ -229,7 +174,7 @@
   "pk": "00000000-0000-0000-0000-000000000012",
   "model": "evaluation.textanswer",
   "fields": {
-    "answer": ".other_responsible_orig_hidden.",
+    "answer": ".responsible_contributor_orig_hidden.",
     "question": 1,
     "original_answer": null,
     "contribution": 6,
@@ -240,9 +185,9 @@
   "pk": "00000000-0000-0000-0000-000000000013",
   "model": "evaluation.textanswer",
   "fields": {
-    "answer": ".other_responsible_changed_published.",
+    "answer": ".responsible_contributor_changed_published.",
     "question": 1,
-    "original_answer": ".other_responsible_orig_published_changed.",
+    "original_answer": ".responsible_contributor_orig_published_changed.",
     "contribution": 6,
     "state": "PU"
   }
@@ -251,7 +196,7 @@
   "pk": "00000000-0000-0000-0000-000000000014",
   "model": "evaluation.textanswer",
   "fields": {
-    "answer": ".other_responsible_orig_private.",
+    "answer": ".responsible_contributor_orig_private.",
     "question": 1,
     "original_answer": null,
     "contribution": 6,
@@ -262,7 +207,7 @@
   "pk": "00000000-0000-0000-0000-000000000015",
   "model": "evaluation.textanswer",
   "fields": {
-    "answer": ".other_responsible_orig_notreviewed.",
+    "answer": ".responsible_contributor_orig_notreviewed.",
     "question": 1,
     "original_answer": null,
     "contribution": 6,
@@ -358,29 +303,12 @@
   "pk": 7,
   "model": "evaluation.userprofile",
   "fields": {
-    "username": "contributor_course_comments",
-    "first_name": "contributor_course_comments",
+    "username": "contributor_general_textanswers",
+    "first_name": "contributor_general_textanswers",
     "last_name": "user",
     "last_login": "2014-09-16T22:53:02.506",
     "password": "pbkdf2_sha256$12000$oyxddVrECuLk$ayPgZNkTANvBcWbTvPGaR4NBlqPELpElG7C4M1UN210=",
-    "email": "contributor_course_comments@institution.example.com",
-    "title": "",
-    "cc_users": [],
-    "delegates": [],
-    "login_key_valid_until": null,
-    "login_key": null
-  }
-},
-{
-  "pk": 8,
-  "model": "evaluation.userprofile",
-  "fields": {
-    "username": "contributor_all_comments",
-    "first_name": "contributor_all_comments",
-    "last_name": "user",
-    "last_login": "2014-09-16T22:53:02.506",
-    "password": "pbkdf2_sha256$12000$oyxddVrECuLk$ayPgZNkTANvBcWbTvPGaR4NBlqPELpElG7C4M1UN210=",
-    "email": "contributor_all_comments@institution.example.com",
+    "email": "contributor_evaluation_textanswers@institution.example.com",
     "title": "",
     "cc_users": [],
     "delegates": [],
@@ -392,12 +320,12 @@
   "pk": 9,
   "model": "evaluation.userprofile",
   "fields": {
-    "username": "other_responsible",
-    "first_name": "other_responsible",
+    "username": "responsible_contributor",
+    "first_name": "responsible_contributor",
     "last_name": "user",
     "last_login": "2014-09-16T22:51:39.584",
     "password": "pbkdf2_sha256$12000$oyxddVrECuLk$ayPgZNkTANvBcWbTvPGaR4NBlqPELpElG7C4M1UN210=",
-    "email": "other_responsible@institution.example.com",
+    "email": "responsible_contributor@institution.example.com",
     "title": "",
     "cc_users": [],
     "delegates": [],
@@ -427,27 +355,12 @@
   "model": "evaluation.contribution",
   "fields": {
     "contributor": null,
-    "course": 1,
-    "responsible": false,
+    "evaluation": 1,
     "questionnaires": [
       2
     ],
     "can_edit": false,
-    "comment_visibility": "OWN"
-  }
-},
-{
-  "pk": 2,
-  "model": "evaluation.contribution",
-  "fields": {
-    "contributor": 2,
-    "course": 1,
-    "responsible": true,
-    "questionnaires": [
-      1
-    ],
-    "can_edit": true,
-    "comment_visibility": "ALL"
+    "textanswer_visibility": "OWN"
   }
 },
 {
@@ -455,13 +368,12 @@
   "model": "evaluation.contribution",
   "fields": {
     "contributor": 6,
-    "course": 1,
-    "responsible": false,
+    "evaluation": 1,
     "questionnaires": [
       1
     ],
     "can_edit": false,
-    "comment_visibility": "OWN"
+    "textanswer_visibility": "OWN"
   }
 },
 {
@@ -469,27 +381,12 @@
   "model": "evaluation.contribution",
   "fields": {
     "contributor": 7,
-    "course": 1,
-    "responsible": false,
+    "evaluation": 1,
     "questionnaires": [
       1
     ],
     "can_edit": false,
-    "comment_visibility": "GENERAL"
-  }
-},
-{
-  "pk": 5,
-  "model": "evaluation.contribution",
-  "fields": {
-    "contributor": 8,
-    "course": 1,
-    "responsible": false,
-    "questionnaires": [
-      1
-    ],
-    "can_edit": false,
-    "comment_visibility": "ALL"
+    "textanswer_visibility": "GENERAL"
   }
 },
 {
@@ -497,13 +394,12 @@
   "model": "evaluation.contribution",
   "fields": {
     "contributor": 9,
-    "course": 1,
-    "responsible": true,
+    "evaluation": 1,
     "questionnaires": [
       1
     ],
     "can_edit": true,
-    "comment_visibility": "ALL"
+    "textanswer_visibility": "GENERAL"
   }
 },
 {
@@ -519,18 +415,30 @@
   "model": "evaluation.course",
   "fields": {
     "name_de": "a new course",
-    "_participant_count": 25,
     "degrees": [1],
-    "voters": [],
     "semester": 1,
+    "responsibles": [2, 9],
+    "last_modified_time": "2014-09-16T23:01:13.059",
+    "last_modified_user": 2,
+    "name_en": "a course",
+    "type": 1
+  }
+},
+{
+  "pk": 1,
+  "model": "evaluation.evaluation",
+  "fields": {
+    "name_de": "a new evaluation",
+    "_participant_count": 25,
+    "voters": [],
+    "course": 1,
     "last_modified_time": "2014-09-16T23:01:13.059",
     "_voter_count": 17,
     "state": "published",
     "last_modified_user": 2,
     "participants": [],
     "vote_end_date": "2014-09-30",
-    "name_en": "a course",
-    "type": 1,
+    "name_en": "an evaluation",
     "vote_start_datetime": "2014-09-10",
     "can_publish_text_results": true
   }

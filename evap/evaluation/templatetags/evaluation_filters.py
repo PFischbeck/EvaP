@@ -1,6 +1,11 @@
+from django.forms import TypedChoiceField
 from django.template import Library
-from evap.evaluation.tools import POSITIVE_YES_NO_NAMES, NEGATIVE_YES_NO_NAMES, LIKERT_NAMES, STATE_DESCRIPTIONS, STATES_ORDERED
+
+from evap.evaluation.models import BASE_UNIPOLAR_CHOICES
+from evap.evaluation.tools import STATES_ORDERED, STATE_DESCRIPTIONS
 from evap.rewards.tools import can_user_use_reward_points
+from evap.student.forms import HeadingField
+
 
 register = Library()
 
@@ -11,13 +16,12 @@ def _zip(a, b):
 
 
 @register.filter
-def ordering_index(course):
-    if course.state in ['new', 'prepared', 'editor_approved', 'approved']:
-        return course.days_until_evaluation
-    elif course.state == "in_evaluation":
-        return 100000 + course.days_left_for_evaluation
-    else:
-        return 200000 + course.days_left_for_evaluation
+def ordering_index(evaluation):
+    if evaluation.state in ['new', 'prepared', 'editor_approved', 'approved']:
+        return evaluation.days_until_evaluation
+    elif evaluation.state == "in_evaluation":
+        return 100000 + evaluation.days_left_for_evaluation
+    return 200000 + evaluation.days_left_for_evaluation
 
 
 # from http://www.jongales.com/blog/2009/10/19/percentage-django-template-tag/
@@ -52,15 +56,12 @@ def percentage_value(fraction, population):
 
 
 @register.filter
-def get_answer_name(question, grade):
-    if question.is_likert_question:
-        return LIKERT_NAMES.get(grade)
-    elif question.is_positive_yes_no_question:
-        return POSITIVE_YES_NO_NAMES.get(grade)
-    elif question.is_negative_yes_no_question:
-        return NEGATIVE_YES_NO_NAMES.get(grade)
-    else:
-        return grade
+def to_colors(choices):
+    if not choices:
+        # When displaying the course distribution, there are no associated voting choices.
+        # In that case, we just use the colors of a unipolar scale.
+        return BASE_UNIPOLAR_CHOICES['colors']
+    return choices.colors
 
 
 @register.filter
@@ -74,8 +75,8 @@ def statedescription(state):
 
 
 @register.filter
-def can_user_see_results_page(course, user):
-    return course.can_user_see_results_page(user)
+def can_user_see_results_page(evaluation, user):
+    return evaluation.can_user_see_results_page(user)
 
 
 @register.filter(name='can_user_use_reward_points')
@@ -85,17 +86,17 @@ def _can_user_use_reward_points(user):
 
 @register.filter
 def is_choice_field(field):
-    return field.field.__class__.__name__ == "TypedChoiceField"
+    return isinstance(field.field, TypedChoiceField)
 
 
 @register.filter
 def is_heading_field(field):
-    return field.field.__class__.__name__ == "HeadingField"
+    return isinstance(field.field, HeadingField)
 
 
 @register.filter
-def is_user_editor_or_delegate(course, user):
-    return course.is_user_editor_or_delegate(user)
+def is_user_editor_or_delegate(evaluation, user):
+    return evaluation.is_user_editor_or_delegate(user)
 
 
 @register.filter
@@ -117,5 +118,5 @@ def hours_and_minutes(time_left_for_evaluation):
 
 
 @register.filter
-def has_nonresponsible_editor(course):
-    return course.contributions.filter(responsible=False, can_edit=True).exists()
+def has_nonresponsible_editor(evaluation):
+    return evaluation.contributions.filter(can_edit=True).exclude(contributor__in=evaluation.course.responsibles.all()).exists()

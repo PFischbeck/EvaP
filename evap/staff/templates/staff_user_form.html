@@ -1,5 +1,7 @@
 {% extends 'staff_base.html' %}
 
+{% load evaluation_filters %}
+
 {% block breadcrumb %}
     {{ block.super }}
     <li class="breadcrumb-item"><a href="{% url 'staff:user_index' %}">{% trans 'Users' %}</a></li>
@@ -38,20 +40,24 @@
                     {% include 'user_list_with_links.html' with users=form.instance.ccing_users.all %}
                 </div>
             </div>
-            {% if courses_contributing_to %}
+            {% if evaluations_contributing_to %}
                 <div class="card mb-3">
                     <div class="card-body">
                         <h5 class="card-title">{% trans 'Export result pages' %}</h5>
                         <ul>
-                            {% for semester, courses in courses_contributing_to %}
-                                {% if courses %}
+                            {% for semester, evaluations in evaluations_contributing_to %}
+                                {% if evaluations %}
                                     <li>{{ semester.name }}</li>
                                     <ul>
-                                        {% for course in courses %}
+                                        {% for evaluation in evaluations %}
                                             <li>
-                                                <a href="{% url 'results:course_detail' semester.id course.id %}?view=export&contributor_id={{ form.instance.id }}">
-                                                    {{ course.name }}
-                                                </a>
+                                                {% if evaluation|can_user_see_results_page:form.instance %}
+                                                    <a href="{% url 'results:evaluation_detail' semester.id evaluation.id %}?view=export&contributor_id={{ form.instance.id }}">
+                                                        {{ evaluation.name }}
+                                                    </a>
+                                                {% else %}
+                                                    {{ evaluation.name }}
+                                                {% endif %}
                                             </li>
                                         {% endfor %}
                                     </ul>

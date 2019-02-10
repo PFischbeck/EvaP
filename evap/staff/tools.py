@@ -71,9 +71,13 @@ def custom_redirect(url_name, *args, **kwargs):
 def delete_navbar_cache_for_users(users):
     # delete navbar cache from base.html
     for user in users:
-        key = make_template_fragment_key('navbar', [user.username, 'de'])
+        key = make_template_fragment_key('navbar', [user.username, 'de', False])
         cache.delete(key)
-        key = make_template_fragment_key('navbar', [user.username, 'en'])
+        key = make_template_fragment_key('navbar', [user.username, 'en', False])
+        cache.delete(key)
+        key = make_template_fragment_key('navbar', [user.username, 'de', True])
+        cache.delete(key)
+        key = make_template_fragment_key('navbar', [user.username, 'en', True])
         cache.delete(key)
 
 

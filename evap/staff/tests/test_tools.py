@@ -21,9 +21,9 @@ class NavbarCacheTest(WebTest):
         self.app.get("/results/", user='user1')
         self.app.get("/results/", user='user2')
 
-        cache_key1 = make_template_fragment_key('navbar', [user1.username, 'en'])
-        cache_key2 = make_template_fragment_key('navbar', [user2.username, 'en'])
-        cache_key_anonymous = make_template_fragment_key('navbar', ['', 'en'])
+        cache_key1 = make_template_fragment_key('navbar', [user1.username, 'en', False])
+        cache_key2 = make_template_fragment_key('navbar', [user2.username, 'en', False])
+        cache_key_anonymous = make_template_fragment_key('navbar', ['', 'en', False])
 
         self.assertIsNotNone(cache.get(cache_key1))
         self.assertIsNotNone(cache.get(cache_key2))
